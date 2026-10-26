@@ -4,9 +4,11 @@ export const profile = {
   github: "https://github.com/Swaroopkumar07",
   linkedin:
     "https://www.linkedin.com/in/swaroopkumar-painam-321577222/",
-  resume: "/SwaroopResume.pdf",
+  instagram: "https://www.instagram.com/swaroop.kumar___/",
+  resume: "/Swaroop_Resume.pdf",
   location: "Hyderabad, India",
 };
+
 
 export const navigation = [
   { number: "01", label: "About", id: "about" },

@@ -600,3 +600,150 @@ main {
     margin-top: 0;
   }
 }
+
+/* Social icon layout */
+.social-rail {
+  gap: 16px;
+}
+
+.contact-socials {
+  gap: 18px;
+}
+
+.social-icon {
+  --social-accent: var(--green);
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  width: 44px;
+  height: 44px;
+
+  color: var(--light-slate);
+  background: rgb(17 34 64 / 70%);
+  border: 1px solid rgb(154 167 196 / 18%);
+  border-radius: 12px;
+
+  transition:
+    color 220ms ease,
+    transform 220ms ease,
+    border-color 220ms ease,
+    background 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.social-icon svg {
+  width: 20px;
+  height: 20px;
+
+  transition: transform 220ms ease;
+}
+
+.social-github {
+  --social-accent: #e6edf3;
+}
+
+.social-linkedin {
+  --social-accent: #70b7ff;
+}
+
+.social-instagram {
+  --social-accent: #ff83bb;
+}
+
+.social-gmail {
+  --social-accent: #ff8c82;
+}
+
+/* Labels appear on hover and keyboard focus */
+.social-tooltip {
+  position: absolute;
+  bottom: calc(100% + 12px);
+  left: 50%;
+  z-index: 40;
+
+  padding: 7px 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+
+  color: var(--white);
+  background: var(--light-navy);
+  font: 10px var(--mono);
+  white-space: nowrap;
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translate(-50%, 5px);
+
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease,
+    visibility 180ms ease;
+}
+
+/* Desktop rail labels open to the right */
+.social-rail .social-tooltip {
+  top: 50%;
+  bottom: auto;
+  left: calc(100% + 12px);
+  transform: translate(-5px, -50%);
+}
+
+.social-icon:focus-visible {
+  color: var(--social-accent);
+  border-color: var(--social-accent);
+}
+
+.social-icon:focus-visible .social-tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
+}
+
+.social-rail .social-icon:focus-visible .social-tooltip {
+  transform: translate(0, -50%);
+}
+
+@media (hover: hover) {
+  .social-icon:hover {
+    color: var(--social-accent);
+    background: #172d4c;
+    border-color: var(--social-accent);
+    transform: translateY(-5px);
+
+    box-shadow:
+      0 10px 22px rgb(2 12 27 / 40%),
+      0 0 14px rgb(100 255 218 / 8%);
+  }
+
+  .social-icon:hover svg {
+    transform: scale(1.12) rotate(-5deg);
+  }
+
+  .social-icon:hover .social-tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, 0);
+  }
+
+  .social-rail .social-icon:hover .social-tooltip {
+    transform: translate(0, -50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .social-icon,
+  .social-icon svg,
+  .social-tooltip {
+    transition: none;
+  }
+
+  .social-icon:hover,
+  .social-icon:hover svg {
+    transform: none;
+  }
+}
