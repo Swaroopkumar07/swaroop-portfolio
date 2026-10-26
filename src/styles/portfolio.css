@@ -628,11 +628,11 @@ main {
   border-radius: 12px;
 
   transition:
-    color 220ms ease,
-    transform 220ms ease,
-    border-color 220ms ease,
-    background 220ms ease,
-    box-shadow 220ms ease;
+  color 220ms ease,
+  transform 220ms ease,
+  border-color 220ms ease,
+  background 220ms ease,
+  box-shadow 220ms ease;
 }
 
 .social-icon svg {

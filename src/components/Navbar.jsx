@@ -1,15 +1,67 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { FaBars, FaTimes } from "react-icons/fa";
 import { navigation, profile } from "../data/portfolio";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const headerRef = useRef(null);
+  const buttonRef = useRef(null);
 
   function closeMenu() {
     setMenuOpen(false);
   }
 
+  useEffect(() => {
+    const desktopQuery = window.matchMedia("(min-width: 901px)");
+
+    function handleResize(event) {
+      if (event.matches) {
+        setMenuOpen(false);
+      }
+    }
+
+    desktopQuery.addEventListener("change", handleResize);
+
+    return () => {
+      desktopQuery.removeEventListener("change", handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    function handleKeyDown(event) {
+      if (event.key === "Escape") {
+        setMenuOpen(false);
+        buttonRef.current?.focus();
+      }
+    }
+
+    function handlePointerDown(event) {
+      if (!headerRef.current?.contains(event.target)) {
+        setMenuOpen(false);
+      }
+    }
+
+    document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("pointerdown", handlePointerDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("pointerdown", handlePointerDown);
+    };
+  }, [menuOpen]);
+
   return (
-    <header className="header">
+    <header
+      className="header"
+      ref={headerRef}
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) {
+          closeMenu();
+        }
+      }}
+    >
       <a
         className="logo"
         href="#home"
@@ -20,24 +72,25 @@ export default function Navbar() {
       </a>
 
       <button
+        ref={buttonRef}
         className="menu-button"
         type="button"
+        aria-label={menuOpen ? "Close navigation" : "Open navigation"}
         aria-expanded={menuOpen}
         aria-controls="main-navigation"
         onClick={() => setMenuOpen((open) => !open)}
       >
-        {menuOpen ? "Close" : "Menu"}
+        {menuOpen ? (
+          <FaTimes aria-hidden="true" />
+        ) : (
+          <FaBars aria-hidden="true" />
+        )}
       </button>
 
       <nav
         id="main-navigation"
         className={`navigation ${menuOpen ? "is-open" : ""}`}
         aria-label="Main navigation"
-        onKeyDown={(event) => {
-          if (event.key === "Escape") {
-            closeMenu();
-          }
-        }}
       >
         {navigation.map(({ number, label, id }) => (
           <a key={id} href={`#${id}`} onClick={closeMenu}>
@@ -52,7 +105,7 @@ export default function Navbar() {
           rel="noopener noreferrer"
           onClick={closeMenu}
         >
-          Résumé
+          Résumé <span aria-hidden="true">↗</span>
         </a>
       </nav>
     </header>
