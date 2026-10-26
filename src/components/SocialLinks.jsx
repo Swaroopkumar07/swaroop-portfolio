@@ -42,7 +42,7 @@ export default function SocialLinks({ variant = "inline" }) {
       return (
         <a
           key={name}
-          className={`social-icon ${className}`}
+          className={`social-icon travel-border ${className}`}
           href={href}
           aria-label={
             isEmail ? `Email ${profile.name}` : `${name} profile`
@@ -51,9 +51,6 @@ export default function SocialLinks({ variant = "inline" }) {
           rel={isEmail ? undefined : "noopener noreferrer"}
         >
           <Icon aria-hidden="true" focusable="false" />
-          <span className="social-tooltip" aria-hidden="true">
-            {name}
-          </span>
         </a>
       );
     }

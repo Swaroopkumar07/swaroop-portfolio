@@ -1,5 +1,7 @@
 import SectionHeading from "./SectionHeading";
 import ProjectCard from "./ProjectCard";
+import Reveal from "./Reveal";
+import Spotlight from "./Spotlight";
 import { projects } from "../data/portfolio";
 
 export default function Projects() {
@@ -11,7 +13,11 @@ export default function Projects() {
 
       <div className="projects">
         {projects.map((project) => (
-          <ProjectCard key={project.id} project={project} />
+          <Reveal key={project.id}>
+            <Spotlight>
+              <ProjectCard project={project} />
+            </Spotlight>
+          </Reveal>
         ))}
       </div>
     </section>

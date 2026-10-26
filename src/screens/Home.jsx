@@ -7,6 +7,7 @@ import Projects from "../components/Projects";
 import Contact from "../components/Contact";
 import Footer from "../components/Footer";
 import Reveal from "../components/Reveal";
+import BackToTop from "../components/BackToTop";
 
 export default function Home() {
   return (
@@ -21,17 +22,13 @@ export default function Home() {
       <main id="main">
         <Hero />
 
-        <Reveal>
-          <About />
-        </Reveal>
+        <About />
 
         <Reveal>
           <Experience />
         </Reveal>
 
-        <Reveal>
-          <Projects />
-        </Reveal>
+        <Projects />
 
         <Reveal>
           <Contact />
@@ -39,6 +36,7 @@ export default function Home() {
       </main>
 
       <Footer />
+      <BackToTop />
     </>
   );
 }

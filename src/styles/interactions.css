@@ -1,0 +1,295 @@
+/* Header background and shadow */
+.header {
+  transition:
+    background-color 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.header.header-scrolled {
+  background: rgb(10 25 47 / 97%);
+  box-shadow: 0 8px 28px rgb(2 12 27 / 35%);
+}
+
+/* Active section link */
+.navigation > a.nav-active {
+  color: var(--green);
+}
+
+.navigation > a.nav-active::after {
+  transform: scaleX(1);
+}
+
+/* Reveal animation is controlled by Reveal.jsx.
+   These overrides remove previous reveal transitions. */
+.scroll-reveal,
+.scroll-reveal-content {
+  min-width: 0;
+}
+
+.scroll-reveal-content {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
+/* Project spotlight */
+.spotlight-card {
+  --spotlight-x: 75%;
+  --spotlight-y: 20%;
+
+  position: relative;
+  isolation: isolate;
+  min-width: 0;
+  border-radius: 10px;
+}
+
+.spotlight-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: inherit;
+  pointer-events: none;
+
+  background: radial-gradient(
+    300px circle at var(--spotlight-x) var(--spotlight-y),
+    rgb(100 255 218 / 12%),
+    transparent 75%
+  );
+
+  opacity: 0;
+  transition: opacity 220ms ease;
+}
+
+.spotlight-card:focus-within::after {
+  opacity: 1;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .spotlight-card:hover::after {
+    opacity: 1;
+  }
+}
+
+@media (hover: none) {
+  .spotlight-card::after {
+    opacity: 0.45;
+  }
+}
+
+/* Preserve alternating desktop projects despite wrappers */
+@media (min-width: 901px) {
+  .projects > .scroll-reveal:nth-child(even) .project-art {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .projects > .scroll-reveal:nth-child(even) .project-copy {
+    grid-column: 1;
+    grid-row: 1;
+    text-align: left;
+  }
+
+  .projects > .scroll-reveal:nth-child(even) .project-description {
+    margin-left: 0;
+    margin-right: -45px;
+  }
+
+  .projects > .scroll-reveal:nth-child(even) .technology-list {
+    justify-content: flex-start;
+  }
+}
+
+/* Photo frame interaction */
+.about-photo {
+  min-width: 0;
+}
+
+.about-photo img {
+  transition:
+    transform 250ms ease,
+    box-shadow 250ms ease;
+}
+
+@media (hover: hover) {
+  .about-photo:hover img {
+    transform: translate(-3px, -3px);
+    box-shadow: 0 18px 40px rgb(2 12 27 / 40%);
+  }
+}
+
+/* Back to top */
+.back-to-top {
+  position: fixed;
+  right: max(20px, env(safe-area-inset-right));
+  bottom: calc(24px + env(safe-area-inset-bottom));
+  z-index: 25;
+
+  width: 46px;
+  height: 46px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--green);
+  background: var(--light-navy);
+  border: 1px solid var(--green);
+  border-radius: 50%;
+  box-shadow: 0 8px 25px rgb(2 12 27 / 35%);
+
+  cursor: pointer;
+
+  transition:
+    transform 200ms ease,
+    background-color 200ms ease;
+}
+
+.back-to-top svg {
+  width: 16px;
+  height: 16px;
+}
+
+@media (hover: hover) {
+  .back-to-top:hover {
+    transform: translateY(-4px);
+    background: #1b3a4b;
+  }
+}
+
+/* Avoid the desktop email rail */
+@media (min-width: 1101px) {
+  .back-to-top {
+    right: 82px;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .header,
+  .spotlight-card::after,
+  .about-photo img,
+  .back-to-top {
+    transition: none;
+  }
+
+  .about-photo:hover img,
+  .back-to-top:hover {
+    transform: none;
+  }
+}
+/* Animated angle used by the border gradient */
+@property --border-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.travel-border {
+  position: relative;
+  isolation: isolate;
+  border-radius: 12px;
+}
+
+/* Mask the gradient so only a thin border remains */
+.travel-border::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  z-index: 3;
+
+  padding: 2px;
+  border-radius: inherit;
+  pointer-events: none;
+
+  background: conic-gradient(
+    from var(--border-angle),
+    transparent 0deg,
+    transparent 270deg,
+    rgb(100 255 218 / 15%) 295deg,
+    #64ffda 325deg,
+    #ffffff 335deg,
+    #64ffda 345deg,
+    transparent 360deg
+  );
+
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+
+  opacity: 0;
+  transition: opacity 200ms ease;
+
+  animation: border-travel 2.5s linear infinite;
+  animation-play-state: paused;
+}
+
+@keyframes border-travel {
+  from {
+    --border-angle: 0deg;
+  }
+
+  to {
+    --border-angle: 360deg;
+  }
+}
+
+/* Mouse interaction */
+@media (hover: hover) and (pointer: fine) {
+  .travel-border:hover::before {
+    opacity: 1;
+    animation-play-state: running;
+  }
+}
+
+/* Keyboard interaction */
+.travel-border:focus-within::before {
+  opacity: 1;
+  animation-play-state: running;
+}
+
+/* Touchscreens get a subtle stationary border */
+@media (hover: none) {
+  .travel-border::before {
+    opacity: 0.45;
+    animation: none;
+  }
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .travel-border::before {
+    animation: none;
+    transition: none;
+  }
+}
+
+/* Use each social icon's accent colour */
+.social-icon.travel-border::before {
+  inset: -2px;
+  padding: 2px;
+
+  background: conic-gradient(
+    from var(--border-angle),
+    transparent 0deg,
+    transparent 270deg,
+    var(--social-accent) 325deg,
+    #ffffff 338deg,
+    var(--social-accent) 348deg,
+    transparent 360deg
+  );
+
+  animation-duration: 2s;
+}
+
+/* Keep the icon above the decorative border */
+.social-icon.travel-border svg {
+  position: relative;
+  z-index: 4;
+}

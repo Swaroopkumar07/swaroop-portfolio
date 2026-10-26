@@ -708,6 +708,60 @@ main {
   transform: translate(0, -50%);
 }
 
+.about-photo {
+  position: relative;
+  isolation: isolate;
+  width: min(100% - 16px, 340px);
+  margin-inline: auto;
+}
+
+.about-photo::after {
+  content: "";
+  position: absolute;
+  inset: 14px -14px -14px 14px;
+  z-index: -1;
+  border: 2px solid var(--green);
+  border-radius: 10px;
+  transition: transform 250ms ease;
+}
+
+.about-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 5 / 6;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  box-shadow: 0 15px 35px rgb(2 12 27 / 30%);
+  transition: transform 250ms ease;
+}
+
+@media (hover: hover) {
+  .about-photo:hover img {
+    transform: translate(-3px, -3px);
+  }
+
+  .about-photo:hover::after {
+    transform: translate(3px, 3px);
+  }
+}
+
+@media (max-width: 900px) {
+  .about-photo {
+    width: min(100% - 16px, 300px);
+    margin-top: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-photo img,
+  .about-photo::after {
+    transition: none;
+    transform: none !important;
+  }
+}
 @media (hover: hover) {
   .social-icon:hover {
     color: var(--social-accent);
