@@ -1,0 +1,79 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap");
+
+:root {
+  font-family: "DM Sans", sans-serif;
+  color: #9aa7c4;
+  background: #0a192f;
+
+  --navy: #0a192f;
+  --light-navy: #112240;
+  --white: #dce5ff;
+  --slate: #9aa7c4;
+  --light-slate: #b6c2dd;
+  --green: #64ffda;
+  --border: #233554;
+  --mono: "Space Mono", monospace;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 110px;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background:
+    radial-gradient(
+      ellipse at 85% 5%,
+      rgb(100 255 218 / 5%),
+      transparent 40%
+    ),
+    var(--navy);
+}
+
+#root {
+  width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 180ms ease;
+}
+
+a:hover {
+  color: var(--green);
+}
+
+button {
+  font: inherit;
+}
+
+a,
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 6px;
+}
+
+p {
+  line-height: 1.8;
+}
+
+::selection {
+  color: var(--green);
+  background: #233554;
+}
