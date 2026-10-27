@@ -5,7 +5,7 @@ export const profile = {
   linkedin:
     "https://www.linkedin.com/in/swaroopkumar-painam-321577222/",
   instagram: "https://www.instagram.com/swaroop.kumar___/",
-  resume: "/Swaroop_Resume.pdf",
+  resume: `${import.meta.env.BASE_URL}Swaroop_Resume.pdf`,
   location: "Hyderabad, India",
 };
 
